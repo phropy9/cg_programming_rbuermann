@@ -11,6 +11,7 @@
 #include <iostream>
 #include <stdexcept>
 #include <cmath>
+#include <GL/glew.h>
 
 //Name Spaces...
 
