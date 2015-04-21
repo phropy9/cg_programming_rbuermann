@@ -135,7 +135,10 @@ int InitGlewFailed() {
 	};*/
 
 GLuint& LoadQuad() {
-	static const GLfloat g_vertex_buffer_data[] = {
+
+	
+
+	static GLfloat g_vertex_buffer_data[] = {
 		0.0f, 0.0f, 0.0f,
 		1.0f, 0.0f, 0.0f,
 		1.0f, 1.0f, 0.0f,
@@ -145,6 +148,10 @@ GLuint& LoadQuad() {
 		0.0f, 1.0f, 0.0f
 	};
 
+	for(int i = 0, size = 18; i < size; ++i) {
+		g_vertex_buffer_data[i] -= 0.5f;
+	}
+
 	GLuint vertexBuffer = 0;
 	glGenBuffers(1, &vertexBuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
@@ -153,7 +160,7 @@ GLuint& LoadQuad() {
 	return vertexBuffer;
 }
 
-void RenderQuad(GLuint vertexBuffer) {
+void renderVertex(GLuint vertexBuffer) {
 	glEnableVertexAttribArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
 
@@ -161,9 +168,21 @@ void RenderQuad(GLuint vertexBuffer) {
 		0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0
 		);
 
+
+}
+
+void renderQuad(GLuint vertexBuffer) {
+	renderVertex(vertexBuffer);
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 	glDisableVertexAttribArray(0);
 }
+
+void renderTriangle(GLuint vertexBuffer) {
+	renderVertex(vertexBuffer);
+	glDrawArrays(GL_TRIANGLES, 0, 3);
+	glDisableVertexAttribArray(0);
+}
+
 
 int main() {
 
@@ -188,7 +207,7 @@ int main() {
 
 		glUseProgram(programID);
 
-		RenderQuad(quadID);
+		renderQuad(quadID);
 		//Update();
 		//Render();
 		glfwSwapBuffers(window);
