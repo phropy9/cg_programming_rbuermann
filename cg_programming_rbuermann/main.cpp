@@ -127,10 +127,21 @@ int InitGlewFailed() {
 	return EXIT_WITH_SUCCESS;
 }
 
-GLuint& LoadTriangle() {
+/*GLuint& LoadTriangle() {
 	static const GLfloat g_vertex_buffer_data[] = {
 		-1.0f, -1.0f, 0.0f,
 		1.0f, -1.0f, 0.0f,
+		0.0f, 1.0f, 0.0f
+	};*/
+
+GLuint& LoadQuad() {
+	static const GLfloat g_vertex_buffer_data[] = {
+		0.0f, 0.0f, 0.0f,
+		1.0f, 0.0f, 0.0f,
+		1.0f, 1.0f, 0.0f,
+
+		0.0f, 0.0f, 0.0f,
+		1.0f, 1.0f, 0.0f,
 		0.0f, 1.0f, 0.0f
 	};
 
@@ -142,7 +153,7 @@ GLuint& LoadTriangle() {
 	return vertexBuffer;
 }
 
-void RenderTriangle(GLuint vertexBuffer) {
+void RenderQuad(GLuint vertexBuffer) {
 	glEnableVertexAttribArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
 
@@ -150,7 +161,7 @@ void RenderTriangle(GLuint vertexBuffer) {
 		0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0
 		);
 
-	glDrawArrays(GL_TRIANGLES, 0, 3);
+	glDrawArrays(GL_TRIANGLES, 0, 6);
 	glDisableVertexAttribArray(0);
 }
 
@@ -169,7 +180,7 @@ int main() {
 	//Create and compile glsl program from shaders...
 	GLuint programID = LoadShaders("BasicVertexShader.vertexshader", "BasicFragmentShader.fragmentshader");
 
-	GLuint triangleID = LoadTriangle();
+	GLuint quadID = LoadQuad();
 
 	do {
 
@@ -177,7 +188,7 @@ int main() {
 
 		glUseProgram(programID);
 
-		RenderTriangle(triangleID);
+		RenderQuad(quadID);
 		//Update();
 		//Render();
 		glfwSwapBuffers(window);
