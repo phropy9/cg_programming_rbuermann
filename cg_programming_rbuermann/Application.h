@@ -9,6 +9,7 @@
 #include <GL\glew.h>
 #include <glfw3.h>
 #include <glm/glm.hpp>
+#include "glm/gtc/matrix_transform.hpp"
 
 
 //Standard Headers...
@@ -40,6 +41,9 @@ using namespace glm;
 #define SCREEN_WIDTH 1024
 #define SCREEN_HEIGHT 768
 #define GLFW_FAIL  0
+#define FIELD_OF_VIEW 45.0f
+#define Z_NEAR 0.1f
+#define Z_FAR 100.0f
 
 extern GLFWwindow* window;
 extern GLint shaderStatus;
